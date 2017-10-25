@@ -82,11 +82,6 @@
     " turn off search highlight
     nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
 
-    " move vertically by visual line
-    nnoremap j gj
-    nnoremap k gk
-    " execute pathogen#infect()
-
     " NERDTREE
     autocmd VimEnter * NERDTree
     autocmd VimEnter * wincmd p

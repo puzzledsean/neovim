@@ -20,7 +20,7 @@
     
     
     " --------------------------------------------------------------------------------------------------------------------
-    " Plugins 
+    " Install Plugins 
     " --------------------------------------------------------------------------------------------------------------------
     call dein#add('Shougo/neosnippet.vim')                                                " snippets
     call dein#add('Shougo/neosnippet-snippets')
@@ -36,13 +36,7 @@
     if dein#check_install()
     call dein#install()
     endif
-    
-    " autocomplete
-    call deoplete#enable()
-    
-    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
-    autocmd CompleteDone * pclose " To close preview window of deoplete automagically
-    
+   
     " Required:
     call dein#end()
     call dein#save_state()
@@ -50,8 +44,34 @@
 
 
     " --------------------------------------------------------------------------------------------------------------------
+    " Deoplete 
+    " --------------------------------------------------------------------------------------------------------------------
+    " autocomplete
+    call deoplete#enable()
+    " disable deoplete preview
+    set completeopt-=preview
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
+
+    " use tab to forward cycle
+    inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    " use shift tab to backward cycle
+    inoremap <silent><expr><s-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
+
+    " show snippets with short names
+    call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+    nnoremap <F9> :call deoplete#toggle()<CR> 
+    autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
+    autocmd CompleteDone * pclose " To close preview window of deoplete automagically
+
+
+    " --------------------------------------------------------------------------------------------------------------------
     " Vim config stuff 
     " --------------------------------------------------------------------------------------------------------------------
+    " set python interpreter
+    let g:python3_host_prog = '/usr/bin/python3'
+    let g:python_host_prog = '/usr/bin/python'
+    
     filetype plugin indent on
     syntax enable 
     set tabstop=4           " number of visual spaces per TAB
@@ -68,25 +88,35 @@
     set incsearch           " search as characters are entered
     set hlsearch            " highlight matches
     set mouse=a             " use mouse 
+    vmap <C-c> "+y          " copy and paste  
+    vmap <C-x> "+c
+    nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR> " turn off search highlight
+    let g:netrw_dirhistmax = 0
     
+    
+    " --------------------------------------------------------------------------------------------------------------------
+    " Colors 
+    " --------------------------------------------------------------------------------------------------------------------
     " https://dougblack.io/words/a-good-vimrc.html
     let g:hybrid_custom_term_colors = 1
     let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
     colorscheme one 
-    let g:netrw_dirhistmax = 0
 
-    " copy and paste
-    vmap <C-c> "+y
-    vmap <C-x> "+c
     
-    " turn off search highlight
-    nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
+    " --------------------------------------------------------------------------------------------------------------------
+    " ALE linter 
+    " --------------------------------------------------------------------------------------------------------------------
+    nmap <silent> <C-k> <Plug>(ale_previous_wrap)       " navigate between errors quickly 
+    nmap <silent> <C-j> <Plug>(ale_next_wrap) 
+    let g:ale_echo_msg_error_str = 'E'                  " customomized error message formatting
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-    " NERDTREE
+
+    " --------------------------------------------------------------------------------------------------------------------
+    " NERDTree 
+    " --------------------------------------------------------------------------------------------------------------------
     autocmd VimEnter * NERDTree
     autocmd VimEnter * wincmd p
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-    let g:python_host_prog = '/usr/bin/python'
-    let g:python3_host_prog = '/usr/bin/python3'
 

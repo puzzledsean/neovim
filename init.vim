@@ -26,6 +26,7 @@
     call dein#add('Shougo/neosnippet-snippets')
     call dein#add('Shougo/deoplete.nvim')                                                 " autocomplete
     call dein#add('scrooloose/nerdtree',{'on_cmd': 'NERDTreeToggle'})                     " NERDTree
+    call dein#add('scrooloose/nerdcommenter')                                             " NERDCommenter
     call dein#add('vim-airline/vim-airline')                                              " vim airline
     call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})        " close parentheses and such
     call dein#add('Shougo/vimshell', { 'rev': '3787e5' })                                 " specify revision/branch/tag
@@ -101,6 +102,8 @@
     let g:hybrid_custom_term_colors = 1
     let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
     colorscheme one 
+    let g:airline#extensions#branch#enabled=1
+    let g:airline#extensions#hunks#enabled=0
 
     
     " --------------------------------------------------------------------------------------------------------------------
@@ -119,4 +122,13 @@
     autocmd VimEnter * NERDTree
     autocmd VimEnter * wincmd p
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    " --------------------------------------------------------------------------------------------------------------------
+    " NERDCommenter
+    " --------------------------------------------------------------------------------------------------------------------
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
+
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 1 
 

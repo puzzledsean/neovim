@@ -30,6 +30,7 @@
     call dein#add('vim-airline/vim-airline')                                              " vim airline
     call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})        " close parentheses and such
     call dein#add('Shougo/vimshell', { 'rev': '3787e5' })                                 " specify revision/branch/tag
+    call dein#add('fatih/vim-go') " add go 
  
     "  call dein#add('bps/vim-textobj-python', { 'on_ft' : 'python' }) 
     
@@ -92,16 +93,20 @@
     vmap <C-c> "+y          " copy and paste  
     vmap <C-x> "+c
     nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR> " turn off search highlight
+
+
     let g:netrw_dirhistmax = 0
     
     
     " --------------------------------------------------------------------------------------------------------------------
-    " Colors 
+    " Colors / Airline 
     " --------------------------------------------------------------------------------------------------------------------
     " https://dougblack.io/words/a-good-vimrc.html
     let g:hybrid_custom_term_colors = 1
     let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
     colorscheme one 
+
+    " airline
     let g:airline#extensions#branch#enabled=1
     let g:airline#extensions#hunks#enabled=0
 
@@ -114,11 +119,13 @@
     let g:ale_echo_msg_error_str = 'E'                  " customomized error message formatting
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    let g:ale_set_highlights = 0
 
 
     " --------------------------------------------------------------------------------------------------------------------
     " NERDTree 
     " --------------------------------------------------------------------------------------------------------------------
+    " close NERDTree if it's the last buffer open
     autocmd VimEnter * NERDTree
     autocmd VimEnter * wincmd p
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

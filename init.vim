@@ -91,7 +91,7 @@
     set incsearch           " search as characters are entered
     set hlsearch            " highlight matches
     set mouse=a             " use mouse 
-    set tw=70               " text/line wrapping
+    " set tw=70               " text/line wrapping
     vmap <C-c> "+y          " copy and paste  
     vmap <C-x> "+c
     nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR> " turn off search highlight
@@ -122,7 +122,13 @@
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
     let g:ale_set_highlights = 0
-
+    " pep8 convention
+    let g:ale_linters = {
+    \   'python': ['pycodestyle'],
+    \}
+    let g:ale_fixers = {
+    \   'python': ['autopep8'],
+    \}
 
     " --------------------------------------------------------------------------------------------------------------------
     " NERDTree 

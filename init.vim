@@ -30,6 +30,7 @@
     call dein#add('Shougo/vimshell', { 'rev': '3787e5' })                                 " specify revision/branch/tag
     call dein#add('fatih/vim-go')                                                         " add go 
     call dein#add('w0rp/ale')                                                             " add linter 
+    call dein#add('pangloss/vim-javascript')
 
     " colors
     call dein#add('sheerun/vim-polyglot')
@@ -83,9 +84,9 @@
     let g:python3_host_prog = '/usr/local/bin/python3'
     let g:python_host_prog = '/usr/bin/python'
 
-    filetype plugin indent on
+    filetype plugin indent on " enable loading indent file for filetype
     set tabstop=4           " number of visual spaces per TAB
-    set shiftwidth=4 
+    set shiftwidth=4
     set expandtab           " tabs are spaces
     set smarttab
     set number              " show line numbers
@@ -93,6 +94,7 @@
     set cursorline          " highlight current line
     filetype indent on      " load filetype-specific indent files
     set wildmenu            " visual autocomplete for command menu
+    set wildmode=full       " <Tab> cycles between all matching choices.
     set lazyredraw          " redraw only when we need to.
     set showmatch           " highlight matching [{()}]
     set incsearch           " search as characters are entered
@@ -100,7 +102,9 @@
     set mouse=a             " use mouse 
     set list                " show trailing whitespace
     set listchars=tab:▸\ ,trail:▫
-
+    set ignorecase
+    
+    " set colorcolumn=80    " draws a vertical line at column 80 
     " set tw=70               " text/line wrapping
 
     " --------------------------------------------------------------------------------------------------------------------
@@ -112,11 +116,15 @@
     vmap <C-c> "+y 
     vmap <C-x> "+c
 
-    " turn off search highlight
+    " turn off search highlight.
     nnoremap <leader>s :noh<CR> 
+
+    " Show/hide NERDTree.
     nnoremap <leader>d :NERDTreeToggle<CR>
+    " Fix lint errors.
+    nnoremap <leader>l :ALEFix<CR> <bar> :sleep 500m <CR> <bar> :%s/\r//g <CR>
+
     nnoremap <leader>f :NERDTreeFind<CR>
-    nnoremap <leader>l :ALEFix<CR>
 
     " navigation
     map <S-h> ^
@@ -128,9 +136,19 @@
     noremap <C-k> <C-w>k
     noremap <C-l> <C-w>l
 
+    " Tab and Shift+Tab to indent/unindent
+    map <S-Tab> <<
+    map <Tab> >> 
+
     " unmap keys
     map J <nop>
     map K <nop>
+
+    " --------------------------------------------------------------------------------------------------------------------
+    " Vim Javascript
+    " --------------------------------------------------------------------------------------------------------------------
+    " Indent for Javascript is only 2 indents instead of 4.
+    autocmd filetype javascript set sw=2 ts=2 expandtab
 
 
     " --------------------------------------------------------------------------------------------------------------------
@@ -180,12 +198,14 @@
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
     let g:ale_set_highlights = 0
-    " pep8 convention
+
     let g:ale_linters = {
     \   'python': ['pycodestyle'],
+    \   'javascript': ['eslint'],
     \}
     let g:ale_fixers = {
-    \   'python': ['autopep8'],
+    \   'python': ['yapf', 'isort'],
+    \   'javascript': ['eslint'],
     \}
 
     " --------------------------------------------------------------------------------------------------------------------

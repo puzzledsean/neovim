@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app'
+let g:netrw_dirhist_2='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app/static'
+let g:netrw_dirhist_3='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app/static/css'
+let g:netrw_dirhist_4='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app'
+let g:netrw_dirhist_5='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app/static'
+let g:netrw_dirhist_6='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app/static/css'
+let g:netrw_dirhist_7='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app/static'
+let g:netrw_dirhist_8='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app'
+let g:netrw_dirhist_9='/Users/Sean/Documents/School/CS591MobileAppDev/Project/webservice/app/templates'
